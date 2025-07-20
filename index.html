@@ -143,6 +143,22 @@
         .test-passed { color: var(--success); background: #eaf9ed; border: 1px solid #d6f5db;}
         .test-failed { color: var(--fail); background: #fdecec; border: 1px solid #fad4d4;}
         .test-warning { color: var(--warning); background: #fff5e6; border: 1px solid #ffe3b3;}
+ .reload-btn {
+            display: block;
+            margin: 24px auto;
+            padding: 12px 24px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            font-family: var(--font-main);
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .reload-btn:hover {
+            background-color: #0a5ad0;
+        }
         @media (max-width: 900px) {
             main { max-width: 99vw; padding: 0 2vw; }
         }
@@ -160,10 +176,11 @@
 <header>
     <h1>🔎 Diagnostic Universel de votre Appareil</h1>
     <p>PC, Mobile, Tablette — vérifiez instantanément la compatibilité de votre appareil&nbsp;!</p>
+<button class="reload-btn" onclick="reloadTests()">🔄 Test </button>
 </header>
 <main>
     <section class="summary" id="summary">
-        <h2>Résumé Express</h2>
+        <h2>Résumé Express</h2> 
         <div class="summary-list" id="summary-list">
             <!-- Résumé dynamique -->
         </div>
@@ -224,6 +241,10 @@
     <span>© 2025 Diagnostic Universel – <a style="color:#0b6efd;text-decoration:none;" href="https://github.com/rafterkode/rafterkode-mobile" target="_blank">rafterkode</a></span>
 </footer>
 <script>
+function reloadTests() {
+            location.reload();
+        }
+
 function runComprehensiveDeviceTest() {
     function badge(ok, oui, non, warn) {
         if (warn) return `<span class="badge test-warning">${warn}</span>`;
