@@ -3,210 +3,416 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diagnostic Complet de l'Appareil</title>
+    <title>Diagnostic Universel de votre Appareil</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto:wght@400;900&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary: #0b6efd;
+            --primary-light: #e5f0fc;
+            --secondary: #212946;
+            --success: #25af3c;
+            --fail: #d13232;
+            --warning: #ffb200;
+            --bg: #f4f8fb;
+            --card: #fff;
+            --border: #e7eaf0;
+            --radius: 20px;
+            --shadow: 0 2px 24px 0 rgba(11,110,253,0.10);
+            --font-main: 'Montserrat', Arial, sans-serif;
+            --font-secondary: 'Roboto', Arial, sans-serif;
+        }
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background: var(--bg);
+        }
         body {
-            font-family: Arial, sans-serif;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            line-height: 1.6;
+            font-family: var(--font-main);
+            color: var(--secondary);
+            min-height: 100vh;
+        }
+        header {
+            background: linear-gradient(90deg, #0b6efd 70%, #2cb3c6 100%);
+            color: #fff;
+            padding: 44px 0 30px 0;
+            border-radius: 0 0 var(--radius) var(--radius);
+            box-shadow: var(--shadow);
+            text-align: center;
+            margin-bottom: 36px;
+            position: relative;
+        }
+        header h1 {
+            margin: 0 0 12px 0;
+            font-size: 2.2rem;
+            font-weight: 900;
+            letter-spacing: 0.03em;
+            font-family: var(--font-secondary);
+            text-shadow: 1px 2px 6px rgba(11,110,253,0.09);
+        }
+        header p {
+            margin: 0;
+            color: #e5f0fc;
+            font-weight: 500;
+            font-size: 1.18rem;
+        }
+        main {
+            width: 100%;
+            max-width: 820px;
+            margin: 0 auto 48px auto;
+            display: flex;
+            flex-direction: column;
+            gap: 36px;
+        }
+        .summary {
+            background: linear-gradient(90deg, #e5f0fc 70%, #b5e4f4 100%);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 28px 24px 12px 24px;
+            margin-bottom: 5px;
+        }
+        .summary h2 {
+            margin: 0 0 12px 0;
+            font-size: 1.27rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+        .summary-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 22px 30px;
+        }
+        .summary-item {
+            display: flex;
+            align-items: center;
+            min-width: 150px;
+            font-size: 1.05rem;
+            margin-bottom: 7px;
+        }
+        .summary-item span {
+            margin-right: 8px;
+            font-size: 1.25em;
         }
         .section {
-            background-color: #f4f4f4;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 15px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 28px 24px 22px 24px;
+            margin-bottom: 0;
+            animation: fadeInUp 0.7s cubic-bezier(.35,1.2,.22,1) both;
         }
-        .test-passed { color: green; }
-        .test-failed { color: red; }
-        .detail { font-size: 0.9em; color: #666; }
+        @keyframes fadeInUp {
+            0% {transform:translateY(40px); opacity:0;}
+            100% { transform:translateY(0); opacity:1;}
+        }
+        .section h2 {
+            margin-top: 0;
+            margin-bottom: 13px;
+            font-size: 1.17rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 0.01em;
+        }
+        .section p {
+            margin: 9px 0;
+            font-size: 1.03rem;
+            font-weight: 500;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+        }
+        .section p .icon {
+            margin-right: 9px;
+            font-size: 1.17em;
+        }
+        .detail {
+            font-size: 0.95em;
+            color: #6c7a91;
+            font-weight: 400;
+        }
+        .badge {
+            display: inline-block;
+            border-radius: 15px;
+            padding: 2px 13px;
+            font-size: 0.97em;
+            font-weight: 700;
+            margin-left: 11px;
+            letter-spacing: .01em;
+        }
+        .test-passed { color: var(--success); background: #eaf9ed; border: 1px solid #d6f5db;}
+        .test-failed { color: var(--fail); background: #fdecec; border: 1px solid #fad4d4;}
+        .test-warning { color: var(--warning); background: #fff5e6; border: 1px solid #ffe3b3;}
+        @media (max-width: 900px) {
+            main { max-width: 99vw; padding: 0 2vw; }
+        }
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.29rem;}
+            header p { font-size: 1rem;}
+            main { gap: 16px;}
+            .section { padding: 13px 3vw 8px 3vw; }
+            .summary { padding: 15px 4vw 5px 4vw;}
+            .summary-list { gap: 12px 5vw;}
+        }
     </style>
 </head>
 <body>
-    <h1>🔍 Diagnostic Complet de l'Appareil</h1>
+<header>
+    <h1>🔎 Diagnostic Universel de votre Appareil</h1>
+    <p>PC, Mobile, Tablette — vérifiez instantanément la compatibilité de votre appareil&nbsp;!</p>
+</header>
+<main>
+    <section class="summary" id="summary">
+        <h2>Résumé Express</h2>
+        <div class="summary-list" id="summary-list">
+            <!-- Résumé dynamique -->
+        </div>
+    </section>
 
     <div id="device-basic" class="section">
-        <h2>Informations de Base</h2>
-        <p id="is-mobile"></p>
-        <p id="platform"></p>
-        <p id="browser"></p>
+        <h2>Informations Générales</h2>
+        <p id="is-mobile"><span class="icon">💻</span></p>
+        <p id="platform"><span class="icon">🖥️</span></p>
+        <p id="browser"><span class="icon">🌐</span></p>
         <p id="user-agent" class="detail"></p>
-        <p id="screen-size"></p>
-        <p id="pixel-ratio"></p>
-    </div>
-
-    <div id="device-capabilities" class="section">
-        <h2>Capacités de l'Appareil</h2>
-        <p id="touch-support"></p>
-        <p id="geolocation"></p>
-        <p id="camera-support"></p>
-        <p id="microphone-support"></p>
-        <p id="battery-support"></p>
-    </div>
-
-    <div id="network-info" class="section">
-        <h2>Informations Réseau</h2>
-        <p id="connection-type"></p>
-        <p id="connection-speed"></p>
-        <p id="effective-connection-type"></p>
+        <p id="screen-size"><span class="icon">📏</span></p>
+        <p id="pixel-ratio"><span class="icon">🖼️</span></p>
     </div>
 
     <div id="hardware-info" class="section">
         <h2>Informations Matérielles</h2>
-        <p id="cpu-cores"></p>
-        <p id="memory"></p>
-        <p id="gpu-info"></p>
+        <p id="cpu-info"><span class="icon">🧠</span></p>
+        <p id="cpu-cores"><span class="icon">🔢</span></p>
+        <p id="arch"><span class="icon">🛠️</span></p>
+        <p id="memory"><span class="icon">💾</span></p>
+        <p id="gpu-info"><span class="icon">🎮</span></p>
+    </div>
+
+    <div id="device-capabilities" class="section">
+        <h2>Capacités de l'Appareil</h2>
+        <p id="touch-support"><span class="icon">☝️</span></p>
+        <p id="geolocation"><span class="icon">📍</span></p>
+        <p id="camera-support"><span class="icon">📸</span></p>
+        <p id="microphone-support"><span class="icon">🎤</span></p>
+        <p id="battery-support"><span class="icon">🔋</span></p>
+    </div>
+
+    <div id="network-info" class="section">
+        <h2>Informations Réseau</h2>
+        <p id="connection-type"><span class="icon">📶</span></p>
+        <p id="connection-speed"><span class="icon">⚡</span></p>
+        <p id="effective-connection-type"><span class="icon">🔗</span></p>
     </div>
 
     <div id="advanced-tests" class="section">
         <h2>Tests Avancés</h2>
-        <p id="webgl-support"></p>
-        <p id="webrtc-support"></p>
-        <p id="orientation-support"></p>
-        <p id="sensors"></p>
+        <p id="webgl-support"><span class="icon">🧩</span></p>
+        <p id="webrtc-support"><span class="icon">📹</span></p>
+        <p id="orientation-support"><span class="icon">🧭</span></p>
+        <p id="sensors"><span class="icon">📡</span></p>
     </div>
 
     <div id="browser-features" class="section">
         <h2>Fonctionnalités du Navigateur</h2>
-        <p id="cookies-enabled"></p>
-        <p id="local-storage"></p>
-        <p id="session-storage"></p>
-        <p id="web-workers"></p>
+        <p id="cookies-enabled"><span class="icon">🍪</span></p>
+        <p id="local-storage"><span class="icon">📦</span></p>
+        <p id="session-storage"><span class="icon">🗄️</span></p>
+        <p id="web-workers"><span class="icon">👷</span></p>
     </div>
-
-    <script>
-       function runComprehensiveDeviceTest() {
-    // Fonction pour déterminer le nom du navigateur
+</main>
+<footer style="text-align:center; color:#bdbdbd; font-size:.99em; margin:30px 0 10px 0;">
+    <span>© 2025 Diagnostic Universel – <a style="color:#0b6efd;text-decoration:none;" href="https://github.com/rafterkode/rafterkode-mobile" target="_blank">rafterkode</a></span>
+</footer>
+<script>
+function runComprehensiveDeviceTest() {
+    function badge(ok, oui, non, warn) {
+        if (warn) return `<span class="badge test-warning">${warn}</span>`;
+        return `<span class="badge ${ok?'test-passed':'test-failed'}">${ok?oui:non}</span>`;
+    }
     function getBrowserName() {
         const agent = navigator.userAgent.toLowerCase();
-        switch (true) {
-            case agent.includes('edge'): return 'Microsoft Edge';
-            case agent.includes('opr'): return 'Opera';
-            case agent.includes('chrome'): return 'Google Chrome';
-            case agent.includes('trident'): return 'Internet Explorer';
-            case agent.includes('firefox'): return 'Mozilla Firefox';
-            case agent.includes('safari'): return 'Safari';
-            default: return 'Navigateur inconnu';
-        }
+        if      (agent.includes('edge'))    return 'Microsoft Edge';
+        else if (agent.includes('opr'))     return 'Opera';
+        else if (agent.includes('chrome'))  return 'Google Chrome';
+        else if (agent.includes('trident')) return 'Internet Explorer';
+        else if (agent.includes('firefox')) return 'Mozilla Firefox';
+        else if (agent.includes('safari'))  return 'Safari';
+        return 'Navigateur inconnu';
     }
-
-    // Informations de base
+    function updateSummary(items) {
+        let html = '';
+        for(const it of items) {
+            html += `<div class="summary-item"><span>${it.icon}</span>${it.label} ${it.result}</div>`;
+        }
+        document.getElementById('summary-list').innerHTML = html;
+    }
+    function parseArch() {
+        const ua = navigator.userAgent.toLowerCase();
+        if (ua.includes('arm')) return "ARM";
+        if (ua.includes('aarch64')) return "ARM64";
+        if (ua.includes('x86_64') || ua.includes('win64') || ua.includes('amd64')) return "x86_64";
+        if (ua.includes('i686') || ua.includes('i386') || ua.includes('x86')) return "x86";
+        if (ua.includes('mips')) return "MIPS";
+        if (ua.includes('ppc')) return "PowerPC";
+        return "Inconnue";
+    }
+    function parseCpuDesc() {
+        const ua = navigator.userAgent;
+        if (/Snapdragon/i.test(ua)) return "Qualcomm Snapdragon";
+        if (/Exynos/i.test(ua)) return "Samsung Exynos";
+        if (/Mediatek|MTK/i.test(ua)) return "MediaTek";
+        if (/Apple/i.test(ua) && /CPU/i.test(ua)) return "Apple Silicon";
+        if (/Intel/i.test(ua)) return "Intel";
+        if (/AMD/i.test(ua)) return "AMD";
+        return "Indéterminé via navigateur";
+    }
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    
-    document.getElementById('is-mobile').textContent = 
-        `Type d'appareil : ${isMobile ? '📱 Mobile' : '💻 Desktop'}`;
-    
-    document.getElementById('platform').textContent = 
-        `Plateforme : ${navigator.platform}`;
-    
-    document.getElementById('browser').textContent = 
-        `Navigateur : ${getBrowserName()}`;
-    
-    document.getElementById('user-agent').textContent = 
+    document.getElementById('is-mobile').innerHTML =
+        `Type d'appareil : ${isMobile ? "Mobile/Tablette" : "Ordinateur de bureau"} ${badge(true, "✔️", "❌")}`;
+    document.getElementById('platform').innerHTML =
+        `Plateforme : ${navigator.platform}`;
+    document.getElementById('browser').innerHTML =
+        `Navigateur : ${getBrowserName()}`;
+    document.getElementById('user-agent').textContent =
         `User Agent : ${navigator.userAgent}`;
-    
-    document.getElementById('screen-size').textContent = 
-        `Taille de l'écran : ${window.screen.width} x ${window.screen.height}`;
-    
-    document.getElementById('pixel-ratio').textContent = 
-        `Ratio de pixels : ${window.devicePixelRatio}`;
-
-    // Capacités de l'appareil
-    document.getElementById('touch-support').textContent = 
-        `Support tactile : ${('ontouchstart' in window) ? '✅ Oui' : '❌ Non'}`;
-
-    // Géolocalisation
-    document.getElementById('geolocation').textContent = 
-        `Géolocalisation : ${navigator.geolocation ? '✅ Supportée' : '❌ Non supportée'}`;
-
-    // Caméra et Micro
-    navigator.mediaDevices.enumerateDevices().then(devices => {
-        const cameras = devices.filter(device => device.kind === 'videoinput');
-        const microphones = devices.filter(device => device.kind === 'audioinput');
-        
-        document.getElementById('camera-support').textContent = 
-            `Caméras détectées : ${cameras.length} ✅`;
-        
-        document.getElementById('microphone-support').textContent = 
-            `Microphones détectés : ${microphones.length} ✅`;
-    }).catch(() => {
-        document.getElementById('camera-support').textContent = 
-            'Caméra : ❌ Accès non autorisé';
-        document.getElementById('microphone-support').textContent = 
-            'Microphone : ❌ Accès non autorisé';
-    });
-
-    // Batterie
-    if ('getBattery' in navigator) {
-        navigator.getBattery().then(battery => {
-            document.getElementById('battery-support').textContent = 
-                `Batterie : ${battery.charging ? '🔌 En charge' : '🔋 Sur batterie'} (${Math.round(battery.level * 100)}%)`;
+    document.getElementById('screen-size').innerHTML =
+        `Taille écran : ${window.screen.width} x ${window.screen.height} pixels`;
+    document.getElementById('pixel-ratio').innerHTML =
+        `Ratio de pixels : ${window.devicePixelRatio}`;
+    // Hardware / CPU
+    document.getElementById('cpu-info').innerHTML =
+        `Processeur détecté : ${parseCpuDesc()}`;
+    document.getElementById('cpu-cores').innerHTML =
+        `Cœurs logiques : ${navigator.hardwareConcurrency || 'Non dispo.'}`;
+    document.getElementById('arch').innerHTML =
+        `Architecture : ${parseArch()}`;
+    if ('deviceMemory' in navigator) {
+        document.getElementById('memory').innerHTML =
+            `RAM : ${navigator.deviceMemory} Go`;
+    } else {
+        document.getElementById('memory').innerHTML =
+            'RAM : Non disponible';
+    }
+    // GPU (correctif Firefox)
+    function getGPUInfo() {
+        try {
+            const canvas = document.createElement('canvas');
+            const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+            if (gl) {
+                let debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+                if (debugInfo && gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL))
+                    return gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+                return gl.getParameter(gl.RENDERER);
+            }
+        } catch(e) {}
+        return 'Non disponible';
+    }
+    document.getElementById('gpu-info').innerHTML = `Carte graphique : ${getGPUInfo()}`;
+    // Capacité
+    document.getElementById('touch-support').innerHTML =
+        `Support tactile : ${'ontouchstart' in window ? "Oui" : "Non"} ${badge('ontouchstart' in window, "Oui", "Non")}`;
+    document.getElementById('geolocation').innerHTML =
+        `Géolocalisation : ${!!navigator.geolocation ? "Supportée" : "Non supportée"} ${badge(!!navigator.geolocation, "Supportée", "Non supportée")}`;
+    if (navigator.mediaDevices && navigator.mediaDevices.enumerateDevices) {
+        navigator.mediaDevices.enumerateDevices().then(devices => {
+            const cameras = devices.filter(d => d.kind === 'videoinput');
+            const microphones = devices.filter(d => d.kind === 'audioinput');
+            document.getElementById('camera-support').innerHTML =
+                `Caméras détectées : ${cameras.length} ${badge(cameras.length,"✔️","❌")}`;
+            document.getElementById('microphone-support').innerHTML =
+                `Microphones détectés : ${microphones.length} ${badge(microphones.length,"✔️","❌")}`;
+        }).catch(() => {
+            document.getElementById('camera-support').innerHTML =
+                `Caméra : accès refusé ${badge(false,"✔️","Accès refusé")}`;
+            document.getElementById('microphone-support').innerHTML =
+                `Microphone : accès refusé ${badge(false,"✔️","Accès refusé")}`;
         });
     } else {
-        document.getElementById('battery-support').textContent = 
-            'Batterie : ❌ Non supportée';
+        document.getElementById('camera-support').innerHTML =
+            `Caméra : non supportée ${badge(false,"✔️","Non supportée")}`;
+        document.getElementById('microphone-support').innerHTML =
+            `Microphone : non supporté ${badge(false,"✔️","Non supporté")}`;
     }
-
-    // Informations réseau (suite)
-        if (connection) {
-            document.getElementById('connection-speed').textContent = 
-                `Vitesse de connexion : ${connection.downlink} Mbps`;
-        } else {
-            document.getElementById('connection-speed').textContent = 
-                'Vitesse de connexion : Non disponible';
-        }
-
-        // Informations matérielles
-        document.getElementById('cpu-cores').textContent = 
-            `Nombre de cœurs CPU : ${navigator.hardwareConcurrency || 'Non disponible'}`;
-
-        // Mémoire
-        if ('deviceMemory' in navigator) {
-            document.getElementById('memory').textContent = 
-                `Mémoire : ${navigator.deviceMemory} Go`;
-        } else {
-            document.getElementById('memory').textContent = 
-                'Mémoire : Non disponible';
-        }
-
-        // GPU et WebGL
-        function checkWebGL() {
-            try {
-                const canvas = document.createElement('canvas');
-                return !!(window.WebGLRenderingContext && 
+    if ('getBattery' in navigator) {
+        navigator.getBattery().then(battery => {
+            document.getElementById('battery-support').innerHTML =
+                `Batterie : ${battery.charging ? '🔌 En charge' : '🔋 Sur batterie'} (${Math.round(battery.level * 100)}%)`;
+        });
+    } else {
+        document.getElementById('battery-support').innerHTML =
+            `Batterie : non supportée ${badge(false,"✔️","Non supportée")}`;
+    }
+    // Réseau
+    const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    if (connection) {
+        document.getElementById('connection-type').innerHTML =
+            `Type de connexion : ${connection.type || 'Non disponible'}`;
+        document.getElementById('connection-speed').innerHTML =
+            `Vitesse : ${connection.downlink || 'Non disponible'} Mbps`;
+        document.getElementById('effective-connection-type').innerHTML =
+            `Type effectif : ${connection.effectiveType || 'Non disponible'}`;
+    } else {
+        document.getElementById('connection-type').innerHTML =
+            'Type de connexion : Non disponible';
+        document.getElementById('connection-speed').innerHTML =
+            'Vitesse : Non disponible';
+        document.getElementById('effective-connection-type').innerHTML =
+            'Type effectif : Non disponible';
+    }
+    // Avancé
+    function checkWebGL() {
+        try {
+            const canvas = document.createElement('canvas');
+            return !!(window.WebGLRenderingContext &&
                     (canvas.getContext('webgl') || canvas.getContext('experimental-webgl')));
-            } catch(e) {
-                return false;
-            }
+        } catch(e) {
+            return false;
         }
-        document.getElementById('webgl-support').textContent = 
-            `Support WebGL : ${checkWebGL() ? '✅ Oui' : '❌ Non'}`;
-
-        // Fonctionnalités du navigateur
-        document.getElementById('cookies-enabled').textContent = 
-            `Cookies activés : ${navigator.cookieEnabled ? '✅ Oui' : '❌ Non'}`;
-
-        document.getElementById('local-storage').textContent = 
-            `Local Storage : ${typeof(Storage) !== "undefined" ? '✅ Supporté' : '❌ Non supporté'}`;
-
-        document.getElementById('session-storage').textContent = 
-            `Session Storage : ${sessionStorage ? '✅ Supporté' : '❌ Non supporté'}`;
-
-        document.getElementById('web-workers').textContent = 
-            `Web Workers : ${!!window.Worker ? '✅ Supportés' : '❌ Non supportés'}`;
-
-        // Capteurs
-        function checkOrientationSensors() {
-            return 'DeviceOrientationEvent' in window && 
-                   'DeviceMotionEvent' in window;
-        }
-        document.getElementById('orientation-support').textContent = 
-            `Capteurs d'orientation : ${checkOrientationSensors() ? '✅ Supportés' : '❌ Non supportés'}`;
-
-        // Lancer tous les tests au chargement
-        window.onload = runComprehensiveDeviceTest;
-    </script>
+    }
+    document.getElementById('webgl-support').innerHTML =
+        `WebGL : ${checkWebGL() ? "Oui" : "Non"} ${badge(checkWebGL(),"Oui","Non")}`;
+    document.getElementById('webrtc-support').innerHTML =
+        `WebRTC : ${!!window.RTCPeerConnection ? "Supporté" : "Non supporté"} ${badge(!!window.RTCPeerConnection,"Supporté","Non supporté")}`;
+    function checkOrientationSensors() {
+        return 'DeviceOrientationEvent' in window &&
+               'DeviceMotionEvent' in window;
+    }
+    document.getElementById('orientation-support').innerHTML =
+        `Capteurs d'orientation : ${checkOrientationSensors() ? "Supportés" : "Non supportés"} ${badge(checkOrientationSensors(),"Supportés","Non supportés")}`;
+    let sensors = [];
+    if ('Accelerometer' in window) sensors.push('Accéléromètre');
+    if ('Gyroscope' in window) sensors.push('Gyroscope');
+    if ('Magnetometer' in window) sensors.push('Magnétomètre');
+    document.getElementById('sensors').innerHTML =
+        `Capteurs détectés : ${sensors.length ? sensors.join(', ') : 'Aucun détecté'}`;
+    // Features navigateur
+    document.getElementById('cookies-enabled').innerHTML =
+        `Cookies activés : ${navigator.cookieEnabled ? "Oui" : "Non"} ${badge(navigator.cookieEnabled,"Oui","Non")}`;
+    document.getElementById('local-storage').innerHTML =
+        `Local Storage : ${typeof(Storage)!=="undefined" ? "Supporté" : "Non supporté"} ${badge(typeof(Storage)!=="undefined","Supporté","Non supporté")}`;
+    let sessionStorageSupported = false;
+    try {
+        sessionStorage.setItem('test', 'test');
+        sessionStorage.removeItem('test');
+        sessionStorageSupported = true;
+    } catch(e) {}
+    document.getElementById('session-storage').innerHTML =
+        `Session Storage : ${sessionStorageSupported ? "Supporté" : "Non supporté"} ${badge(sessionStorageSupported,"Supporté","Non supporté")}`;
+    document.getElementById('web-workers').innerHTML =
+        `Web Workers : ${!!window.Worker ? "Supportés" : "Non supportés"} ${badge(!!window.Worker,"Supportés","Non supportés")}`;
+    // Résumé express (rapide)
+    updateSummary([
+        {icon:"💻", label:"Type", result:(isMobile ? "Mobile/Tab" : "Bureau")},
+        {icon:"🧠", label:"Processeur", result:parseCpuDesc()},
+        {icon:"🔢", label:"Cœurs", result:`${navigator.hardwareConcurrency||"?"}`},
+        {icon:"💾", label:"RAM", result:('deviceMemory' in navigator)?`${navigator.deviceMemory} Go`:'?'},
+        {icon:"🎮", label:"GPU", result:getGPUInfo()},
+        {icon:"🌐", label:"Navigateur", result:getBrowserName()},
+        {icon:"📶", label:"Réseau", result:connection?connection.effectiveType:'?'},
+        {icon:"🧩", label:"WebGL", result:checkWebGL()?'Oui':'Non'}
+    ]);
+}
+window.onload = runComprehensiveDeviceTest;
+</script>
 </body>
 </html>
-
